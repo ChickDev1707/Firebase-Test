@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Firebase-Test/app/src/main/res/layout/activity_main.xml" value="0.19375" />
+        <entry key="..\:/Firebase-Test/app/src/main/res/layout/fragment_autocomplete_item.xml" value="0.1328125" />
+        <entry key="..\:/Firebase-Test/app/src/main/res/layout/fragment_budgets_group_item.xml" value="0.1328125" />
       </map>
     </option>
   </component>

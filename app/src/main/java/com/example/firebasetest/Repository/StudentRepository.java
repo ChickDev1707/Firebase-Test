@@ -17,6 +17,9 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StudentRepository {
     private static volatile StudentRepository instance;
 
@@ -32,16 +35,19 @@ public class StudentRepository {
         db = FirebaseFirestore.getInstance();
     }
     //get all
-    public void getAllStudent(){
+    public void getAllStudent(FirebaseListCallback callback){
         CollectionReference colRef =  db.collection("Student");
         colRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isComplete()){
+                    List<Student> students = new ArrayList<Student>();
                     for( DocumentSnapshot doc : task.getResult()){
                         Student student = Student.fromMap(doc.getId(), doc.getData());
+                        students.add(student);
                         Log.d(student.getId(), student.getName());
                     }
+                    callback.onCallback(students);
                 }
                 else {
                     Log.e("Get all", "Error getting data", task.getException());
@@ -178,6 +184,13 @@ public class StudentRepository {
                         // ...
                     }
                 });
+    }
+
+   public interface FirebaseListCallback{
+        void onCallback(List<Student> t);
+    }
+    public interface FirebaseCallback{
+        void onListCallback(Student t);
     }
 
 }
